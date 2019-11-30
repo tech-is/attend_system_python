@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 $config = [
     'prov-register' => [
@@ -67,7 +67,7 @@ $config = [
             'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
             'errors' => [
                 'required' => '%sを入力してください',
-                "regex_match" => "全角カタカナで入力してください。"
+                'regex_match' => '全角カタカナで入力してください。'
             ]
         ],
         [
@@ -103,6 +103,76 @@ $config = [
             'field' => 'shop_confirm_pass',
             'label' => 'パスワード再確認',
             'rules' => 'required|matches[shop_password]|trim'
+        ]
+    ],
+    'students' => [
+        [
+            'field' => 'name[0]',
+            'label' => '姓名',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください',
+            ]
+        ],
+        [
+            'field' => 'name[1]',
+            'rules' => 'required|trim',
+            'label' => '名前',
+            'errors' => [
+                'required' => '%sを入力してください',
+            ]
+        ],
+        [
+            'field' => 'kana[0]',
+            'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
+            'label' => '全角カナ姓名',
+            'errors' => [
+                'required' => '%sを入力してください',
+                'regex_match' => '全角カタカナで入力してください。'
+            ]
+        ],
+        [
+            'field' => 'kana[1]',
+            'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
+            'label' => '全角カナ名前',
+            'errors' => [
+                'required' => '%sを入力してください',
+                'regex_match' => '全角カタカナで入力してください。'
+            ]
+        ],
+        [
+            'field' => 'email',
+            'rules' => 'required|valid_email|trim',
+            'label' => 'メールアドレス',
+            'errors' => [
+                'required' => '%sを入力してください',
+                'valid_email' => '正しいアドレスを入力してください'
+            ]
+        ],
+        [
+            'field' => 'tel',
+            'rules' => 'required|numeric|trim',
+            'label' => '電話番号',
+            'errors' => [
+                'required' => '%sを入力してください',
+                'numeric' => 'ハイフンなしの数字のみで入力してください',
+            ]
+        ],
+        [
+            'field' => 'zip_code',
+            'rules' => 'required|trim',
+            'label' => '郵便番号',
+            'errors' => [
+                'required' => '%sを入力してください',
+            ]
+        ],
+        [
+            'field' => 'address',
+            'rules' => 'required|trim',
+            'label' => '住所',
+            'errors' => [
+                'required' => '%sを入力してください',
+            ]
         ]
     ]
 ];

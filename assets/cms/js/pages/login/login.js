@@ -18,7 +18,7 @@ function forgot_password() {
 
 $('#login').on('submit', function () {
     $.ajax({
-        url: '//animarl.com/login/login',
+        url: '//localhost/tech_isys/login/login',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -26,8 +26,7 @@ $('#login').on('submit', function () {
         data: {
             'login-email': $('#login-email').val(),
             'login-password': $('#login-password').val()
-        },
-        dataType: 'json'
+        }
     }).then(
         function (data) {
             process_callback(data)

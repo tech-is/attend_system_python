@@ -1,9 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class login extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -17,8 +16,9 @@ class login extends CI_Controller
     {
         $data['token'] = bin2hex(openssl_random_pseudo_bytes(24));
         $_SESSION['token'] = $data['token'];
-        if(isset($_SESSION['shop_id'])) {
-            header('location: //animarl.com/cl_main');
+        if (isset($_SESSION['shop_id'])) {
+            $url = base_url();
+            header("location: {$url}students");
         } else {
             $this->load->view('login/view_sign-in', $data);
         }
@@ -27,19 +27,18 @@ class login extends CI_Controller
     public function login()
     {
         $this->judge_request_param();
-        if($this->form_validation->run('login')) {
+        if ($this->form_validation->run('login')) {
             $this->load->model('mdl_login');
             $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
-            if($data) {
-                if(password_verify($this->input->post('login-password'), $data['shop_password'])) {
-                    $res_array = json_msg('login', true);
+            if ($data) {
+                if (password_verify($this->input->post('login-password'), $data['shop_password'])) {
+                    $res_array = callback_json_msg('login', true);
                     $_SESSION['shop_id'] = $data['shop_id'];
                 } else {
-                    $res_array = json_msg('login', false);
-                    // $res_array = ['error' => 'ログインに失敗しました...'];
+                    $res_array = callback_json_msg('login', false);
                 }
             } else {
-                $res_array = json_msg('login', false);
+                $res_array = callback_json_msg('login', false);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -51,27 +50,27 @@ class login extends CI_Controller
     public function logout()
     {
         session_destroy();
-        exit(header('location: //animarl.com/login'));
+        exit(header('location: //{base_url()}/login'));
     }
 
     public function prov_register()
     {
         $this->judge_request_param();
-        if($this->form_validation->run('prov-register')) {
+        if ($this->form_validation->run('prov-register')) {
             $data = [
                 'tmp_shop_email' => $this->input->post('prov-email'),
                 'tmp_shop_code' => hash('md5', getmypid().microtime()),
                 'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
             ];
             $this->load->model('mdl_login');
-            if($this->mdl_login->check_tmp_user($data['tmp_shop_email']) === 0) {
-                if($this->mdl_login->insert_tmp_data($data)) {
-                    $res_array = $this->send_email($data)? json_msg('prov', true): json_msg('prov', false);
+            if ($this->mdl_login->check_tmp_user($data['tmp_shop_email']) === 0) {
+                if ($this->mdl_login->insert_tmp_data($data)) {
+                    $res_array = $this->send_email($data)? callback_json_msg('prov', true): callback_json_msg('prov', false);
                 } else {
-                    $res_array = json_msg('prov', false);
+                    $res_array = callback_json_msg('prov', false);
                 }
             } else {
-                $res_array = json_msg('prov', false);
+                $res_array = callback_json_msg('prov', false);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -83,15 +82,15 @@ class login extends CI_Controller
     public function send_token_for_reset()
     {
         $this->judge_request_param();
-        if($this->form_validation->run('forgot-password')) {
+        if ($this->form_validation->run('forgot-password')) {
             $this->load->model('mdl_login');
-            if($this->mdl_login->check_tmp_user(['shop_email' => $email = $this->input->post('forgot-email')]) === 1) {
+            if ($this->mdl_login->check_tmp_user(['shop_email' => $email = $this->input->post('forgot-email')]) === 1) {
                 $data = [
                     'tmp_shop_email' => $email,
                     'tmp_shop_code' => hash('md5', getmypid().microtime()),
                     'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
                 ];
-                if($this->mdl_login->insert_tmp_data($data)) {
+                if ($this->mdl_login->insert_tmp_data($data)) {
                     $msg = <<< EOM
                     いつもAnimarlをご利用いただきありがとうございます。
                     パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願い致します。
@@ -103,13 +102,13 @@ class login extends CI_Controller
                     $this->email->to($email);
                     $this->email->subject('Animarlログインパスワードリセット');
                     $this->email->message($msg);
-                    if(!$this->email->send()) {
+                    if (!$this->email->send()) {
                         exit(print_r($this->email->print_debugger()));
                     } else {
-                        $res_array = json_msg('send_token', true);
+                        $res_array = callback_json_msg('send_token', true);
                     }
                 } else {
-                    $res_array = json_msg('send_token', false);
+                    $res_array = callback_json_msg('send_token', false);
                 }
             } else {
                 $res_array = ['valierr' => ['forgot-email' => 'メールアドレスが登録されていません']];
@@ -123,9 +122,9 @@ class login extends CI_Controller
 
     public function password_reset_form()
     {
-        if(!empty($code = $this->input->get('code'))) {
+        if (!empty($code = $this->input->get('code'))) {
             $this->load->model('mdl_shops');
-            if($data = $this->mdl_shops->get_tmp_email($code)) {
+            if ($data = $this->mdl_shops->get_tmp_email($code)) {
                 $data['code'] = $code;
                 $data['token'] = bin2hex(openssl_random_pseudo_bytes(24));
                 $_SESSION['token'] = $data['token'];
@@ -143,16 +142,16 @@ class login extends CI_Controller
     public function password_reset()
     {
         $this->judge_request_param();
-        if($this->form_validation->run('reset-password')) {
+        if ($this->form_validation->run('reset-password')) {
             $this->load->model('mdl_login');
-            if($email = $this->mdl_login->get_tmp_email($this->input->post('reset-token'))) {
+            if ($email = $this->mdl_login->get_tmp_email($this->input->post('reset-token'))) {
                 $data = [
                     'where' => $email['tmp_shop_email'],
-                    'set' => ['shop_password' => password_hash($this->input->post('reset-password'),PASSWORD_DEFAULT)]
+                    'set' => ['shop_password' => password_hash($this->input->post('reset-password'), PASSWORD_DEFAULT)]
                 ];
-                $res_array = $this->mdl_login->update_password($data)? json_msg('password_reset', true): json_msg('password_reset', false, 10);
+                $res_array = $this->mdl_login->update_password($data)? callback_json_msg('password_reset', true): callback_json_msg('password_reset', false, 10);
             } else {
-                $res_array = json_msg('password_reset', false, 1);
+                $res_array = callback_json_msg('password_reset', false, 1);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -168,7 +167,7 @@ class login extends CI_Controller
      */
     private function judge_request_param()
     {
-        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
             header('HTTP/1.1 403 Forbidden');
             exit();
         }
@@ -196,5 +195,4 @@ class login extends CI_Controller
             return true;
         }
     }
-
 }
