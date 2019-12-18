@@ -40,7 +40,7 @@ $("#update").on("click", function () {
 
 $("#barcode").on("click", function () {
     let data = $('#datatable').DataTable().row('.active').data();
-    window.open('http://localhost/tech_isys/students/create_barcode?barcode=' + data.student_barcode + '&name=' + data.student_name + '', 'new', 'top=100, left=100, width=500,height=500z,menubar=no, toolbar=no, scrollbars=yes')
+    window.open('http://localhost/tech_isys/students/create_barcode?barcode=' + data.student_barcode + '&name=' + data.student_name)
 });
 
 $(function () {

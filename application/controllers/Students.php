@@ -12,6 +12,11 @@ class students extends CI_Controller
         date_default_timezone_set('Asia/Tokyo');
     }
 
+    /**
+     * dbから生徒の情報を取得しviewファイルを生成
+     *
+     * @return void
+     */
     public function index()
     {
         $students = $this->Mdl_students->get_students();
@@ -21,6 +26,11 @@ class students extends CI_Controller
         $this->load->view('pages/students/view_students', $data);
     }
 
+    /**
+     * 生徒のdb情報からバーコードをviewに生成
+     *
+     * @return void
+     */
     public function create_barcode()
     {
         $data= [
@@ -30,6 +40,11 @@ class students extends CI_Controller
         $this->load->view('pages/students/view_barcode', $data);
     }
 
+    /**
+     * 生徒の情報をdbに登録
+     *
+     * @return void
+     */
     public function register_student()
     {
         $this->load->library('form_validation');
@@ -55,6 +70,11 @@ class students extends CI_Controller
         exit(json_encode($res_array));
     }
 
+    /**
+     * 生徒の情報をdbに更新
+     *
+     * @return void
+     */
     public function update_student()
     {
         $this->load->library('form_validation');
@@ -78,6 +98,12 @@ class students extends CI_Controller
         exit(json_encode($res_array));
     }
 
+    /**
+     * バーコードをhtmltableとして出力
+     *
+     * @param string $text
+     * @return string
+     */
     private function bar128($text)
     {
         global $char128asc,$char128charWidth;

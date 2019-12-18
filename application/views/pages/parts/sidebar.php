@@ -1,6 +1,6 @@
 <?php
-    $url = explode("/", $_SERVER['REQUEST_URI']);
-    $req = end($url);
+    $url = parse_url($_SERVER['REQUEST_URI']);
+    $req = substr($url['path'], 1);
     $sidebar_parts_array = [
         "students" => [
             "icon" => "people",
@@ -44,7 +44,7 @@
             <?php foreach ($sidebar_parts_array as $sidebar_url => $sidebar_parts): ?>
                 <?php echo $req === $sidebar_url? '<li class="active">': '<li>'; ?>
                 <?php if ($sidebar_url === "accepting"):?>
-                    <a href="javascript:void(window.open('http://localhost/tech_isys/attend/accepting', 'new', 'top=100, left=100, width=500,height=500z,menubar=no, toolbar=no, scrollbars=yes'));">
+                    <a href="<?php echo base_url(). 'attend/'.$sidebar_url ?>" target="_blank">
                 <?php else: ?>
                     <a href="<?php echo base_url($sidebar_url); ?>">
                 <?php endif; ?>

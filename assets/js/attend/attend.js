@@ -3,15 +3,39 @@ $(function () {
     $('#datatable').DataTable({
         dom: 'Bfrtip',
         scrollX: false,
-        data: attend_json,
-        columns: [
-            { 'data': "student_name" },
-            { 'data': "attended_at" },
-            { 'data': "lefted_at" },
-            { 'data': "time_diff" },
+        order: [],
+        columnDefs: [
+            {
+                "targets": 0,
+                "visible": false,
+                "searchable": false
+            }
         ],
         buttons: [
-            'copy', 'csv', 'excel', 'print'
-        ]
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ],
     });
 });

@@ -1,27 +1,24 @@
-# Animarl
-## Animarl(アニマール)とは
-ペットサロン事業者向けの顧客管理システムです
+# TECHIS出席管理システム
+
+## 概要
+TECHIS内での生徒の出席を管理するシステムです。
 
 ## ダウンロード
-GitHubからダウンロードするかgit cloneしてください  
-ダウンロード先  
-https://github.com/tech-is/teamWM/archive/master.zip
+```
+git clone https://github.com/tech-is/attend_system.git
+```
 
-git cloneする場合
-```
-git clone https://github.com/tech-is/teamWM
-```
 ## 環境構成
 ```
 ・apache
-・PHP 7.x
+・PHP > 7.3
 ・MYSQL 10.1.38-MariaDB
 ・Codeigniter 3.x
 ```
 ## 導入方法
 apacheのDocummentRoot内に当プロジェクトを展開してください  
-.htaccessの設定を読み込めるようにサーバーの設定を変更してください  
-  
+.htaccessの設定を読み込めるようにapacheの設定を変更してください  
+
 httpd.confをエディタ等で開いてプロジェクトを展開しているDocumentrootの設定を
 ```
 -     AllowOverride None
@@ -36,20 +33,46 @@ httpd.confをエディタ等で開いてプロジェクトを展開しているD
 のようにコメントアウトを外してモジュールを有効化してください  
 その後apacheを再起動してください
 ## データベース構築
-database.txtに記述しているSQL文をMysqlを立ち上げて実行してください  
-ターミナルで行う場合  
-```
-mysql -u root -p パスワード
-MariaDB[(none)] ここにSQLを貼り付けて実行
-```
+dumpファイルをどこに置くか検討中
+
 ## フォルダ構成
-・application/  
-　　・config/　デフォルトコントローラーの設定やデータベースの設定ファイルを置いています  
-　　・controler/　コントローラーのフォルダ  
-　　・model/　データベース周りの関数をまとめたクラスを置いているフォルダ  
-　　・views/　フロントエンドファイルをまとめたフォルダ  
-・system/ ライブラリやヘルパーを置いているフォルダ  
-・assets/ 静的ファイルをおいているフォルダ  
-　　・CMS/　CMS本体のcssとjsを置いています  
-・index.php　最初にこのファイルを読み込んでください  
-・database.txt　データベースを構築するSQL文を記述しています  
+```
+├─application
+│  ├─cache
+│  ├─config
+│  ├─controllers //コントローラー
+│  ├─core
+│  ├─helpers
+│  ├─hooks
+│  ├─language
+│  ├─librarie
+│  ├─logs
+│  ├─models //モデル
+│  ├─third_party
+│  └─views
+├─assets //cssやjs
+│  ├─cms
+│  ├─css
+│  ├─images
+│  ├─js
+│  ├─php
+│  ├─plugins
+│  ├─scss
+│  └─sounds
+├─system //システム関連は編集不可
+│  ├─core
+│  ├─database
+│  ├─fonts
+│  ├─helpers
+│  ├─language
+│  └─libraries
+└─user_guide
+```
+
+## コントローラー構成
+```
+Students.php // 生徒の情報を主に処理するコントローラー
+
+Attend.php // 出退席を主に処理するコントローラー
+
+```

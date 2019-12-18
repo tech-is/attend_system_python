@@ -56,20 +56,6 @@
             'require' => true,
             'placeholder' => '例: 愛媛県松山市港町〇〇番地〇〇マンション〇〇号'
         ],
-        // 'address[1]' => [
-        //     'col' => 'col-lg-4 col-md-4 col-sm-12 col-xs-12',
-        //     'label' => '市町村',
-        //     'type' => 'text',
-        //     'require' => true,
-        //     'placeholder' => '例: 松山市'
-        // ],
-        // 'address[2]' => [
-        //     'col' => 'col-lg-4 col-md-4 col-sm-12 col-xs-12',
-        //     'label' => '番地',
-        //     'type' => 'text',
-        //     'require' => true,
-        //     'placeholder' => '例: 港町〇〇番地〇〇マンション〇〇号'
-        // ]
     ];
 ?>
 <section class="content">
@@ -88,6 +74,8 @@
                             <table id="datatable" class="table table-bordered table-striped table-hover" style="min-width: 100%;">
                                 <thead>
                                     <tr>
+                                        <?php
+                                        ?>
                                         <th>生徒ID</th>
                                         <th>バーコード</th>
                                         <th>生徒名</th>
@@ -139,7 +127,7 @@
                 <div class="row clearfix">
                     <?php foreach ($form_array as $name => $parts) :?>
                         <div class="<?php echo $parts['col']; ?>">
-                        <?php if(isset($parts['label'])) :?>
+                        <?php if (isset($parts['label'])) :?>
                             <label for="<?php echo $name; ?>">
                                 <?php echo $parts['label']; echo isset($parts['require'])?'<span style="color: red; margin-left: 10px">必須</span>': false; ?>
                             </label>
@@ -198,15 +186,15 @@
 <script src="<?php echo base_url();?>/assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Jquery DataTable Plugin Js -->
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
 <!--ボタン効果Sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

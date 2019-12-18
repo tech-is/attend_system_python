@@ -14,22 +14,22 @@
 <body>
 
     <section>
-        <div class="container-fluid">
-            <div class="img_wrapper">
+        <div class="container">
+            <div class="img_wrapper" style="max-width:80%; max-height: 50%">
                 <img src="<?php echo base_url(); ?>assets/images/1636138.png" alt="" style="max-width: 100%; height: auto;">
             </div>
-        </div>
-        <form id="form">
-            <div class="form-group form-float">
-                <label for="barcode">バーコード
-                    <span style="color: red; margin-left: 10px">必須</span>
-                </label>
-                <div class="form-line">
-                    <input type="number" class="form-control" id="barcode" name="barcode" value="" maxlength='13'
-                        autofocus>
+            <form id="form">
+                <div class="form-group form-float">
+                    <label for="barcode">バーコード
+                        <span style="color: red; margin-left: 10px">必須</span>
+                    </label>
+                    <div class="form-line">
+                        <input type="number" class="form-control" id="barcode" name="barcode" value="" maxlength='13'
+                            autofocus>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </section>
 
     <!-- Jquery Core Js -->

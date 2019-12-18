@@ -1,3 +1,10 @@
+/**
+ * ajaxを実行
+ * 
+ * @param {string} type 
+ * @param {string} path 
+ * @param {string} param 
+ */
 function xhr_connect(type, path, param) {
     $.ajax({
         type: type,
@@ -131,28 +138,3 @@ function process_callback(json) {
 //     audioElem.src = "//localhost/tech_isys/assets/sounds/waows.mp3";
 //     audioElem.play();
 // }
-
-
-/**
- * 全角から半角への変革関数
- * 入力値の英数記号を半角変換して返却
- * [引数]   strVal: 入力値
- * [返却値] String(): 半角変換された文字列
- */
-function toHalfWidth(strVal) {
-    // 半角変換
-    var halfVal = strVal.replace(/[！-～]/g,
-        function (tmpStr) {
-            // 文字コードをシフト
-            return String.fromCharCode(tmpStr.charCodeAt(0) - 0xFEE0);
-        }
-    );
-
-    // 文字コードシフトで対応できない文字の変換
-    return halfVal.replace(/”/g, "\"")
-        .replace(/’/g, "'")
-        .replace(/‘/g, "`")
-        .replace(/￥/g, "\\")
-        .replace(/　/g, " ")
-        .replace(/〜/g, "~");
-}

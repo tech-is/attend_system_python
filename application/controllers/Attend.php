@@ -12,19 +12,49 @@ class Attend extends CI_Controller
         date_default_timezone_set('Asia/Tokyo');
     }
 
+    /**
+     * GETで受け取った値を参照してviewファイルに出力
+     *
+     * @return void
+     */
     public function index()
     {
-        $data['json'] = !empty($return = $this->Mdl_attend->get_attend())? json_encode($return): '{}';
+        $column = 'default';
+        if (!empty($_GET)) {
+            if(array_key_exists('where', $_GET)) {
+                $data['td_arrays'] = $this->Mdl_attend->get_attend($column = $this->input->get('where')); //月集計、週集計
+            } elseif (array_key_exists('designated', $_GET)) {
+                $data['td_arrays'] = $this->Mdl_attend->get_attend_designated_date($this->input->get('designated')); //日付指定
+            } elseif (array_key_exists('dateRange', $_GET)) {
+                $data['td_arrays'] = $this->Mdl_attend->get_attend_DateRange($this->input->get('dateRange')); //範囲指定
+            } else {
+                $data['td_arrays'] = $this->Mdl_attend->get_attend(); //参照がないときは基本的に今日の日付のデータを返す
+            }
+        } else {
+            $data['td_arrays'] = $this->Mdl_attend->get_attend(); //参照がないときは基本的に今日の日付のデータを返す
+        }
+        // exit($this->db->last_query()); // SQLデバッグ用
+        $data['columns'] = $column;
         $this->load->view('pages/parts/header');
         $this->load->view('pages/parts/sidebar');
         $this->load->view('pages/attend/view_attend', $data);
     }
 
+    /**
+     * バーコード読み取り用のviewを生成
+     *
+     * @return void
+     */
     public function accepting()
     {
         $this->load->view('pages/attend/view_accepting');
     }
 
+    /**
+     * POSTされたバーコードからDB参照してあれば出退席をDBに登録する
+     *
+     * @return mixed
+     */
     public function judge_attendance()
     {
         if (!empty($barcode = $this->input->post('barcode'))) {
@@ -40,8 +70,20 @@ class Attend extends CI_Controller
         exit;
     }
 
-    public function get_attend_in_designated_date()
+    /**
+     * テストデータをDBに登録
+     *
+     * @return void
+     */
+    public function migrarion()
     {
-        $date = $this->input->post('date')?: header('Location: '.base_url().'attend');
+        // for ($i=0; $i<30; $i++) {
+            // $start = date('Y-m-d H:i:s', 1569855600+36000+(86400*$i))."\n";
+            // // $end = date('Y-m-d H:i:s', 1569855600+79200+(86400*$i))."\n";
+            // $start = date('Y-m-d H:i:s', 1572534000+36000+(86400*$i))."\n";
+            // $end = date('Y-m-d H:i:s', 1572534000+79200+(86400*$i))."\n";
+            // $this->db->insert('attendance_record', ['student_id' => 1, 'attended_at' => $start, 'lefted_at' => $end]);
+            // $this->db->insert();
+        // }
     }
 }

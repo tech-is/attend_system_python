@@ -28,11 +28,11 @@ function process_callback(json) {
                 });
                 break;
             case 'valierr':
-                $.each(val, function (id, text) {
-                    $('#' + name).parents('.form-line').addClass('error')
-                    let parent = $('#' + id).parents('.input-group');
+                $.each(val, function (name, text) {
+                    $('input["' + name + '"]').parents('.form-line').addClass('error')
+                    let parent = $('input["' + name + '"]').parents('.input-group');
                     parent.append('<label class="error">' + text + '</label>');
-                    $('#' + name).focus();
+                    $('input["' + name + '"]').focus();
                 });
                 break;
             default:

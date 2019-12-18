@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="<?php echo $token ?>">
-    <title>Tech-i.s.</title>
+    <title>TECH I.S.</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -98,7 +98,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="#">Tech-i.s. CRM</a>
+                <a class="navbar-brand" href="#">TECH I.S. CRM</a>
             </div>
         </div>
     </nav>
