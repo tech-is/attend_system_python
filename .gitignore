@@ -1,5 +1,4 @@
 user_guide
-*.dump
 .vscode
 *.zip
 .DS_Store
