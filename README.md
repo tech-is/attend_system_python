@@ -8,6 +8,32 @@ TECHIS内での生徒の出席を管理するシステムです。
 git clone https://github.com/tech-is/attend_system.git
 ```
 
+# バーコードリーダーシステム
+
+## 概要
+raspberry pi内でシステムを運用し、1次元バーコードをスキャナーで読み込むことによって、DBに生徒の出席状況を記録する
+
+## 環境構成
+```
+・Python >= 3.7.3
+・MYSQL 10.1.38-MariaDB
+```
+
+## 外部ライブラリ
+src/python/requirements.txtをpipで読み込んでください
+```
+mysql-connector-python=>8.0.18
+pynput=>1.6.0
+```
+
+## データベース構築
+/sql 内のdumpファイルをリストアしてください
+
+
+# ローカル用CMS
+
+## kintoneと連携予定のため廃止するか検討中
+
 ## 環境構成
 ```
 ・apache
@@ -15,6 +41,7 @@ git clone https://github.com/tech-is/attend_system.git
 ・MYSQL 10.1.38-MariaDB
 ・Codeigniter 3.x
 ```
+
 ## 導入方法
 apacheのDocummentRoot内に当プロジェクトを展開してください  
 .htaccessの設定を読み込めるようにapacheの設定を変更してください  
@@ -33,10 +60,18 @@ httpd.confをエディタ等で開いてプロジェクトを展開しているD
 のようにコメントアウトを外してモジュールを有効化してください  
 その後apacheを再起動してください
 ## データベース構築
-dumpファイルをどこに置くか検討中
+/sql 内のdumpファイルをリストアしてください
+
+
+## ドキュメントパス設定
+src\application\config\development\config.php
+```
+$config['base_url'] = 'localhost' //ここに展開先のホストを記述する
+```
 
 ## フォルダ構成
 ```
+src
 ├─application
 │  ├─cache
 │  ├─config
@@ -74,5 +109,4 @@ dumpファイルをどこに置くか検討中
 Students.php // 生徒の情報を主に処理するコントローラー
 
 Attend.php // 出退席を主に処理するコントローラー
-
 ```

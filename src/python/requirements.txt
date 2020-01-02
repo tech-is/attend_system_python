@@ -1,0 +1,5 @@
+# Python 3.7.3 pip3
+# pip 18.1
+# 動作ライブラリ
+mysql-connector-python==8.0.18
+pynput==1.6.0

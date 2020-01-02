@@ -62,6 +62,9 @@
                         </form>
                         <form action="<?php echo base_url()?>attend">
                             <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label for="calender">日付範囲指定</label>
+                                </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="display:inline-block">
                                     <div class="form-group">
                                         <div class="form-line">

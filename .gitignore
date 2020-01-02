@@ -5,3 +5,4 @@ user_guide
 *.jpg
 *.png
 *.gif
+src/application/config/development/config.php
