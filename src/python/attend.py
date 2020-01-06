@@ -30,8 +30,8 @@ def judge_barcode(barcode):
     conn = mydb.connect(
         host='localhost',
         port='3306',
-        user='pi',
-        password='h1r0n0bu',
+        user='',
+        password='',
         database='attendance_db'
     )
     # print(conn.is_connected())
