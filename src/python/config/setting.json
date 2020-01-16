@@ -1,0 +1,31 @@
+{
+    "header": {
+        "X-Cybozu-API-Token": "",
+        "Content-Type": "application/json"
+    },
+    "students": {
+        "url": "",
+        "params": {
+            "app": "",
+            "fields": [
+                "student_id",
+                "Name",
+                "barcode"
+            ],
+            "query": "order by student_id asc",
+            "totalCount": true
+        }
+    },
+    "GET": {
+        "url": "",
+        "app": ""
+    },
+    "POST": {
+        "url": "",
+        "app": ""
+    },
+    "PUT": {
+        "url": "",
+        "app": ""
+    }
+}

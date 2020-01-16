@@ -11,7 +11,7 @@ git clone https://github.com/tech-is/attend_system.git
 # バーコードリーダーシステム
 
 ## 概要
-raspberry pi内でシステムを運用し、1次元バーコードをスキャナーで読み込むことによって、DBに生徒の出席状況を記録する
+raspberry pi内でシステムを運用し、1次元バーコードをスキャナーで読み込むことによって、kintoneに生徒の出席状況を記録する
 
 ## 環境構成
 ```
@@ -28,6 +28,54 @@ pynput=>1.6.0
 
 ## データベース構築
 /sql 内のdumpファイルをリストアしてください
+
+## 設定項目
+ローカルDBと接続する際は下記のjsonファイルを編集してください
+/src/python/config/database.json
+```
+{
+    "host": "[接続先ホスト]",
+    "port": "[ポート番号]",
+    "user": "[DBユーザー名]",
+    "password": "[DBパスワード]",
+    "database": "[DB名]"
+}
+```
+
+kintoneAPIにリクエストを送る際は下記のjsonファイルを編集してください
+/src/python/config/setting.json
+```
+{
+    "header": {
+        "X-Cybozu-API-Token": "[APItoken]",
+        "Content-Type": "application/json"
+    },
+    "students": {
+        "url": "[requestURL]}",
+        "params": {
+            "app": "[アプリID]",
+            "fields": [
+                "student_id",
+                "Name",
+                "barcode"
+            ],
+            "query": "order by student_id asc",
+            "totalCount": true
+    },
+    "GET": {
+        "url": "[requestURL]",
+        "app": "[アプリID]"
+    },
+    "POST": {
+        "url": "[requestURL]",
+        "app": "[アプリID]"
+    },
+    "PUT": {
+        "url": "[requestURL]",
+        "app": "[アプリID]"
+    }
+}
+```
 
 
 # ローカル用CMS

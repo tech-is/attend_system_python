@@ -1,4 +1,5 @@
 user_guide
+tools/
 .vscode
 *.zip
 .DS_Store
@@ -6,4 +7,7 @@ user_guide
 *.png
 *.gif
 *.csv
+*.sql
+*.bak
+test.py
 src/application/config/development/config.php
